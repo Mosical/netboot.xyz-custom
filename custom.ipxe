@@ -1,12 +1,18 @@
 #!ipxe
-###
-### netboot.xyz-custom menu
-###
+######## CUSTOM MENU FOR BOOTING FROM PRIMARY DRIVE WITH DEFAULT GRUB INSTALL ########
 
-:start
-echo Hello world!
-sleep 10
-goto custom_exit
+:custom_menu
+menu Chainload into grub via iPXE
+item --gap -- Options:
+item chainload Chainload to drive 0
+item return Return to Main Menu for PXE 
+choose --default chainload --timeout 10000 custom_target && goto ${custom_target}
 
-:custom_exit
+:chainload
+echo Chainloading into grub from local disk...
+sanboot --filename \EFI\GRUB\grubx64.efi --drive 0 
+goto custom_menu
+
+:return
+clear menu
 exit 0
