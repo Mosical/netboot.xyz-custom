@@ -14,5 +14,5 @@ sanboot --filename \EFI\GRUB\grubx64.efi --drive 0
 goto custom_menu
 
 :return
-clear menu
-exit 0
+chain ${menu}.ipxe || goto error
+goto custom_menu
