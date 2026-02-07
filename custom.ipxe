@@ -17,13 +17,13 @@ goto custom_menu
 
 :opnsense
 kernel https://boot.netboot.xyz/memdisk raw iso
-sanboot --no-describe --drive 0x80 ${local_boot_url}/OPNsense-26.1-dvd-amd64.iso
+sanboot ${local_boot_url}/OPNsense-26.1-dvd-amd64.iso
 boot || goto custom_meu
 
 
 :truenas
 kernel https://boot.netboot.xyz/memdisk raw iso
-sanboot --no-describe --drive 0x80 ${local_boot_url}/TrueNAS-SCALE-25.10.1.iso
+sanboot ${local_boot_url}/TrueNAS-SCALE-25.10.1.iso
 boot || goto custom_meu
 
 :return
