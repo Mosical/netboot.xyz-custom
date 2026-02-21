@@ -5,12 +5,18 @@
 menu Chainload into grub via iPXE
 item --gap -- Options:
 item chainload Chainload to drive 0
+item chainload_fallback Chainload a bootable drive
 item return Return to Main Menu for PXE 
 choose --default chainload --timeout 10000 custom_target && goto ${custom_target}
 
 :chainload
 echo Chainloading into grub from local disk...
-sanboot --no-describe --drive 0 
+sanboot --filename \EFI\GRUB\grubx64.efi --drive 0  || goto chainload_fallback
+goto custom_menu
+
+:chainload_fallback
+echo Chainloading into grub from local disk...
+sanboot --filename \EFI\GRUB\grubx64.efi --drive 0 
 goto custom_menu
 
 :return
